@@ -36,12 +36,12 @@ public class BasisModel {
 		Thread.sleep(1000);
 		ecc.sendRequest(MESSWERT.Leistung);
 		Thread.sleep(1000);
-		DatenEinfügen(ecc.gibErgebnisAus(),messreihenId,laufendenummer);
+		DatenEinfÃ¼gen(ecc.gibErgebnisAus(),messreihenId,laufendenummer);
 		ecc.disconnect();
 		return ecc.gibErgebnisAus();
 	}
 	
-	public void DatenEinfügen(double w, int messreihenId,int laufendeNummer) throws ClassNotFoundException, SQLException{
+	public void DatenEinfÃ¼gen(double w, int messreihenId,int laufendeNummer) throws ClassNotFoundException, SQLException{
 		Messung messung = new Messung(laufendeNummer,w);
 		DbAktionen dbAktionen = new DbAktionen(verbindungAufbauen());
 	    dbAktionen.fuegeMessungEin(messreihenId, messung);
