@@ -39,11 +39,11 @@ class DbAktionen{
             while(ergebnis.next()) {
             	messreihen.add( 
                     new Messreihe( 
-                   	Integer.parseInt(ergebnis.getString(0)),Integer.parseInt(ergebnis.getString(1)), 
-                    ergebnis.getString(2),ergebnis.getString(3)));
+                   	Integer.parseInt(ergebnis.getString(1)),Integer.parseInt(ergebnis.getString(2)), 
+                    ergebnis.getString(3),ergebnis.getString(4)));
              }
              ergebnis.close();
-             return (Messreihe[]) messreihen.toArray();
+             return messreihen.toArray(new Messreihe[0]);
         }
         
  
@@ -63,7 +63,7 @@ class DbAktionen{
         	String insertMessreiheStatement = "INSERT INTO Messreihe "
                 + "(MessreihenId, Zeitintervall, Verbraucher, Messgroesse) "
                 + "VALUES(" + 
-                + messreihe.getMessreihenId() + ", " +messreihe.getZeitintervall() + ", '" + messreihe.getVerbraucher()+"'"
+                + messreihe.getMessreihenId() + ", " +messreihe.getZeitintervall() + ", '" + messreihe.getVerbraucher()+"',"
                 + "'" +messreihe.getMessgroesse()+ "')";
         	System.out.println(insertMessreiheStatement);
         	this.statement.executeUpdate(insertMessreiheStatement);
