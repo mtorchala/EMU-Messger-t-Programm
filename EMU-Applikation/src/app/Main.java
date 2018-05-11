@@ -18,7 +18,7 @@ public class Main extends Application {
 		BasisControl bc = new BasisControl();
 		
 		try {
-			primaryStage.setTitle("EMU-Messgerät Anwendung");
+			primaryStage.setTitle("EMU-Messgeraet Anwendung");
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("../gui/BasisView.fxml"));
 			Parent root = loader.load();

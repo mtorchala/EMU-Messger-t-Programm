@@ -13,7 +13,7 @@ public class BasisModel {
 	
 	EmuCheckConnection ecc;
 
-	public String leseDatenAusDB(int messreihenId) throws ClassNotFoundException, SQLException{
+	public String leseMessungenAlsStringAusDB(int messreihenId) throws ClassNotFoundException, SQLException{
 	 	DbAktionen dbAktionen = new DbAktionen(verbindungAufbauen());
         Messung[] messungen = dbAktionen.leseMessungen(messreihenId); 
         String s = "";
@@ -21,6 +21,12 @@ public class BasisModel {
         	s+= " "+ m.gibAttributeAus() + " | ";
         }
         return s;
+	}
+	
+	public Messung[] leseMessungenAusDB(int messreihenId) throws ClassNotFoundException, SQLException{
+	 	DbAktionen dbAktionen = new DbAktionen(verbindungAufbauen());
+        Messung[] messungen = dbAktionen.leseMessungen(messreihenId); 
+        return messungen;
 	}
 	
 	public ObservableList<Messreihe> leseMessreihenAusDB() throws SQLException, ClassNotFoundException{
@@ -48,12 +54,12 @@ public class BasisModel {
 		Thread.sleep(1000);
 		ecc.sendRequest(MESSWERT.Leistung);
 		Thread.sleep(1000);
-		DatenEinfügen(ecc.gibErgebnisAus(),messreihenId,laufendenummer);
+		DatenEinfuegen(ecc.gibErgebnisAus(),messreihenId,laufendenummer);
 		ecc.disconnect();
 		return ecc.gibErgebnisAus();
 	}
 	
-	public void DatenEinfügen(double w, int messreihenId,int laufendeNummer) throws ClassNotFoundException, SQLException{
+	public void DatenEinfuegen(double w, int messreihenId,int laufendeNummer) throws ClassNotFoundException, SQLException{
 		Messung messung = new Messung(laufendeNummer,w);
 		DbAktionen dbAktionen = new DbAktionen(verbindungAufbauen());
 	    dbAktionen.fuegeMessungEin(messreihenId, messung);

@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 
 import business.BasisModel;
 import business.Messreihe;
+import business.Messung;
 import business.Timer;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
@@ -16,7 +17,12 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
+import javafx.scene.chart.XYChart.Data;
+import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
@@ -73,7 +79,7 @@ public class BasisControl implements Initializable{
 	
 	public String leseDatenAusDB(int messreihenId){
 		try {
-			return basisModel.leseDatenAusDB(messreihenId);
+			return basisModel.leseMessungenAlsStringAusDB(messreihenId);
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			return e.getMessage();
@@ -102,6 +108,16 @@ public class BasisControl implements Initializable{
 	@FXML
 	private void messreihenLesen(){
 		try {
+			
+		
+			
+			/*Series<Number,Number> series = new Series<Number, Number>(); 
+			Messung[] m = new Messung[2];
+			m[0] = new Messung(1,1);
+			m[1] = new Messung(2,2);
+			LineChartDarstellung lcd = new LineChartDarstellung();
+			lcd.fensterOeffnen(m);*/
+	
 			ObservableList<Messreihe> ausgeleseneMessreihen = basisModel.leseMessreihenAusDB();
 			
 			tableviewAnzeige.setItems(ausgeleseneMessreihen);
@@ -184,8 +200,46 @@ public class BasisControl implements Initializable{
 		bttnMessreiheStoppen.setDisable(true);
 		
 		ContextMenu contextmenu = new ContextMenu();
-		MenuItem mi = new MenuItem("Darstellung im Diagramm");
-		contextmenu.getItems().add(mi);
+		MenuItem menüDarstellung = new MenuItem("Darstellung im Diagramm");
+		contextmenu.getItems().add(menüDarstellung);
+		
+		menüDarstellung.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>(){
+
+			@Override
+			public void handle(MouseEvent event) {
+				// TODO Auto-generated method stub
+				
+				Messreihe messreihe = (Messreihe) tableviewAnzeige.getSelectionModel().getSelectedItem();
+				
+				
+				Messung[] ausgeleseneMessungen = null;
+				try {
+					ausgeleseneMessungen = basisModel.leseMessungenAusDB(messreihe.getMessreihenId());
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				Stage stage = new Stage();
+				FXMLLoader loader = new FXMLLoader();
+				loader.setLocation(getClass().getResource("../gui/LineChartGUI.fxml"));
+				Parent root = null;
+				try {
+					root = loader.load();
+					LineChartDarstellung lcd = loader.getController();
+					lcd.initialisiereDiagramm(ausgeleseneMessungen);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				Scene scene = new Scene(root);
+				stage.setScene(scene);
+				stage.show();
+			}
+		});
 		
 
 		tableviewAnzeige.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
