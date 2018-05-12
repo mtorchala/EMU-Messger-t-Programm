@@ -29,6 +29,12 @@ public class BasisModel {
         return messungen;
 	}
 	
+	public int getAnzahlMessungenZuMessreihe(int messreihenId) throws ClassNotFoundException, SQLException{
+	 	DbAktionen dbAktionen = new DbAktionen(verbindungAufbauen());
+        int anzahlMessungen = dbAktionen.getAnzahlMessungen(messreihenId); 
+        return anzahlMessungen;
+	}
+	
 	public ObservableList<Messreihe> leseMessreihenAusDB() throws SQLException, ClassNotFoundException{
 		DbAktionen dbAktionen = new DbAktionen(verbindungAufbauen());
         Messreihe[] messreihen = dbAktionen.leseAlleMessreihen();

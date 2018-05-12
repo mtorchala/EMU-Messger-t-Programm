@@ -23,6 +23,8 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
 import javafx.scene.chart.XYChart.Series;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
@@ -108,16 +110,6 @@ public class BasisControl implements Initializable{
 	@FXML
 	private void messreihenLesen(){
 		try {
-			
-		
-			
-			/*Series<Number,Number> series = new Series<Number, Number>(); 
-			Messung[] m = new Messung[2];
-			m[0] = new Messung(1,1);
-			m[1] = new Messung(2,2);
-			LineChartDarstellung lcd = new LineChartDarstellung();
-			lcd.fensterOeffnen(m);*/
-	
 			ObservableList<Messreihe> ausgeleseneMessreihen = basisModel.leseMessreihenAusDB();
 			
 			tableviewAnzeige.setItems(ausgeleseneMessreihen);
@@ -144,10 +136,8 @@ public class BasisControl implements Initializable{
 	        tableviewAnzeige.setItems(ausgeleseneMessreihen);
 			
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -158,19 +148,29 @@ public class BasisControl implements Initializable{
 	
 	@FXML
 	private void messreiheStarten(){
-		//int messreihenId = Integer.parseInt(txtID.getText());
-		//txfAusgeleseneWerte.setText(basisControl.leseDatenAusDB(messreihenId));
 		Messreihe messreihe = (Messreihe) tableviewAnzeige.getSelectionModel().getSelectedItem();
-		
-		timer = new Timer(basisModel,messreihe.getMessreihenId(),messreihe.getZeitintervall());
-		timer.start();
-		
+		try {
+			if(basisModel.getAnzahlMessungenZuMessreihe(messreihe.getMessreihenId()) == 0){
+				timer = new Timer(basisModel,messreihe.getMessreihenId(),messreihe.getZeitintervall());
+				timer.start();
+			}
+			else{
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Fehler");
+				alert.setHeaderText("Ein Fehler ist aufgetreten!");
+				alert.setContentText("Zu der ausgewählten Messreihe existieren bereits zugehörige Messungen.");
+				alert.showAndWait();
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
 	}
 	
 	@FXML
 	private void messreiheStoppen(){
-		//int messreihenId = Integer.parseInt(txtID.getText());
-		//txfAusgeleseneWerte.setText(basisControl.leseDatenAusDB(messreihenId));
 		timer.setStopp(true);
 	}
 	
@@ -184,10 +184,8 @@ public class BasisControl implements Initializable{
 		try {
 			basisModel.speichereMessreihe(mr);
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -195,7 +193,6 @@ public class BasisControl implements Initializable{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
 		bttnMessreiheStarten.setDisable(true);
 		bttnMessreiheStoppen.setDisable(true);
 		
@@ -203,23 +200,18 @@ public class BasisControl implements Initializable{
 		MenuItem menüDarstellung = new MenuItem("Darstellung im Diagramm");
 		contextmenu.getItems().add(menüDarstellung);
 		
-		menüDarstellung.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>(){
+		menüDarstellung.setOnAction(new EventHandler<ActionEvent>(){
 
 			@Override
-			public void handle(MouseEvent event) {
+			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
-				
 				Messreihe messreihe = (Messreihe) tableviewAnzeige.getSelectionModel().getSelectedItem();
-				
-				
 				Messung[] ausgeleseneMessungen = null;
 				try {
 					ausgeleseneMessungen = basisModel.leseMessungenAusDB(messreihe.getMessreihenId());
 				} catch (ClassNotFoundException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				
@@ -232,15 +224,14 @@ public class BasisControl implements Initializable{
 					LineChartDarstellung lcd = loader.getController();
 					lcd.initialisiereDiagramm(ausgeleseneMessungen);
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				Scene scene = new Scene(root);
 				stage.setScene(scene);
 				stage.show();
 			}
-		});
-		
+			
+		});	
 
 		tableviewAnzeige.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 
