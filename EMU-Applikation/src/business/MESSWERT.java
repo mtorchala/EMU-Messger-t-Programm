@@ -1,21 +1,25 @@
 package business;
+import business.EMUZeichenketten;
 
 public enum MESSWERT {
 	
-	Seriennummer("96.1.0", new byte[]{1,82,49,2,57,54,46,49,46,48,40,41,3}, "Seriennummer"),
-	Text("128.128", new byte[]{1,82,49,2,49,50,56,46,49,50,56,40,41,3}, "Text"),
-	Leistung("1.7.1", new byte[]{1,82,49,2,49,46,55,46,49,40,41,3}, "Leistung");
+	Leistung(EMUZeichenketten.SOH + "R1" + EMUZeichenketten.STX + "1.7.1()" + EMUZeichenketten.ETX, "Leistung", "Watt"),
+	Arbeit(EMUZeichenketten.SOH + "R1"+ EMUZeichenketten.STX + "1.8.1()" + EMUZeichenketten.ETX, "Arbeit", "W/h"),
+	Strom(EMUZeichenketten.SOH + "R1"+ EMUZeichenketten.STX + "11.7()" + EMUZeichenketten.ETX, "Strom", "Ampere"),
+	Spannung(EMUZeichenketten.SOH + "R1"+ EMUZeichenketten.STX + "12.7()" + EMUZeichenketten.ETX, "Spannung", "Volt"),
+	Frequenz(EMUZeichenketten.SOH + "R1" + EMUZeichenketten.STX + "14.7()" + EMUZeichenketten.ETX, "Frequenz", "Hertz");
 	
-	private byte[] request;
-	private String obis, einheit;
+
+	private String obis, einheit,request;
 	
-	private MESSWERT(String obis, byte[] request, String einheit){
+	private MESSWERT(String request, String obis, String einheit){
 		this.obis=obis;
 		this.request=request;
 		this.einheit=einheit;
+		
 	}
 
-	public byte[] getRequest() {
+	public String getRequest() {
 		return request;
 	}
 

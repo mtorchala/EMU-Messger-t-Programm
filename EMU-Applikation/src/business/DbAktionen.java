@@ -80,5 +80,17 @@ class DbAktionen{
          ergebnis.close();
          return anzahl;
 	}
+	
+	public int getAnzahlMessreihen(int messreihenId) throws SQLException {
+		ResultSet ergebnis;
+        ergebnis = this.statement.executeQuery(
+        	"SELECT COUNT(*) FROM Messreihe WHERE MessreihenId = " + messreihenId);
+        int anzahl = -1;
+        while(ergebnis.next()) {
+            anzahl = Integer.parseInt(ergebnis.getString(1));
+         }
+         ergebnis.close();
+         return anzahl;
+	}
 }    
 

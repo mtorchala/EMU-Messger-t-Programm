@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import business.BasisModel;
+import business.Messreihe;
 import business.Messung;
 import javafx.application.Application;
 import javafx.fxml.FXML;
@@ -38,12 +39,17 @@ public class LineChartDarstellung{
 	@FXML
 	NumberAxis yAchse;
 	
-	public void initialisiereDiagramm(Messung[] messungen) {
+	public void initialisiereDiagramm(Messreihe messreihe,Messung[] messungen) {
 		series = new Series<Number, Number>();
 		for(Messung m : messungen){
 			series.getData().add(new Data<Number, Number>(m.getLaufendeNummer(),m.getWert()));
 		}
+		
+		series.setName(messreihe.getMessgroesse() + "(Kurve)");
 		diagramm.getData().add(series);
+		
+		xAchse.setLabel("Anzahl der Werte");
+		yAchse.setLabel(messreihe.getMessgroesse());
 	}
 
 	

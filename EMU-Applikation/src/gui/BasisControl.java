@@ -88,7 +88,7 @@ public class BasisControl implements Initializable{
 		}
 	}
 	
-	public double fuehreMessungDurch(int messreihenId, int laufendeNummer) throws Exception {
+	/*public double fuehreMessungDurch(int messreihenId, int laufendeNummer) throws Exception {
 		try {
 			return basisModel.fuehreMessungDurch(messreihenId, laufendeNummer);
 		} catch (IOException e) {
@@ -105,7 +105,7 @@ public class BasisControl implements Initializable{
 			e.printStackTrace();
 		}
 		return 0.0;
-	}
+	}*/
 	
 	@FXML
 	private void messreihenLesen(){
@@ -149,23 +149,33 @@ public class BasisControl implements Initializable{
 	@FXML
 	private void messreiheStarten(){
 		Messreihe messreihe = (Messreihe) tableviewAnzeige.getSelectionModel().getSelectedItem();
-		try {
-			if(basisModel.getAnzahlMessungenZuMessreihe(messreihe.getMessreihenId()) == 0){
-				timer = new Timer(basisModel,messreihe.getMessreihenId(),messreihe.getZeitintervall());
-				timer.start();
+		
+		if(messreihe != null){
+			try {
+				if(basisModel.getAnzahlMessungenZuMessreihe(messreihe.getMessreihenId()) == 0){
+					timer = new Timer(basisModel,messreihe);
+					timer.start();
+				}
+				else{
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setTitle("Fehler");
+					alert.setHeaderText("Ein Fehler ist aufgetreten!");
+					alert.setContentText("Zu der ausgewählten Messreihe existieren bereits zugehörige Messungen.");
+					alert.showAndWait();
+				}
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+	
+				e.printStackTrace();
 			}
-			else{
-				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setTitle("Fehler");
-				alert.setHeaderText("Ein Fehler ist aufgetreten!");
-				alert.setContentText("Zu der ausgewählten Messreihe existieren bereits zugehörige Messungen.");
-				alert.showAndWait();
-			}
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-
-			e.printStackTrace();
+		}
+		else{
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Fehler");
+			alert.setHeaderText("Ein Fehler ist aufgetreten!");
+			alert.setContentText("Es wurde keine Messung ausgew�hlt!!");
+			alert.showAndWait();
 		}
 	}
 	
@@ -177,17 +187,30 @@ public class BasisControl implements Initializable{
 	@FXML
 	private void messreiheSpeichern(){
 		int messreiheId = Integer.parseInt(txtID.getText());
-		int zeitintervall = Integer.parseInt(txtID.getText());
+		int zeitintervall = Integer.parseInt(txtZeitintervall.getText());
 		String verbraucher = txtVerbraucher.getText();
 		String messgroesse = txtMessgroesse.getText();
-		Messreihe mr = new Messreihe(messreiheId,zeitintervall,verbraucher,messgroesse);
 		try {
-			basisModel.speichereMessreihe(mr);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
+			if(basisModel.getExistiertMessreiheSchon(messreiheId) == 0){
+				Messreihe mr = new Messreihe(messreiheId,zeitintervall,verbraucher,messgroesse);
+				basisModel.speichereMessreihe(mr);
+			}
+			else{
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Fehler");
+				alert.setHeaderText("Ein Fehler ist aufgetreten!");
+				alert.setContentText("Es existiert schon eine Messreihe mit dieser MessreihenID !");
+				alert.showAndWait();
+			}
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
+		
+		messreihenLesen();
 		
 	}
 
@@ -197,10 +220,10 @@ public class BasisControl implements Initializable{
 		bttnMessreiheStoppen.setDisable(true);
 		
 		ContextMenu contextmenu = new ContextMenu();
-		MenuItem menüDarstellung = new MenuItem("Darstellung im Diagramm");
-		contextmenu.getItems().add(menüDarstellung);
+		MenuItem menueDarstellung = new MenuItem("Darstellung im Diagramm");
+		contextmenu.getItems().add(menueDarstellung);
 		
-		menüDarstellung.setOnAction(new EventHandler<ActionEvent>(){
+		menueDarstellung.setOnAction(new EventHandler<ActionEvent>(){
 
 			@Override
 			public void handle(ActionEvent event) {
@@ -222,7 +245,7 @@ public class BasisControl implements Initializable{
 				try {
 					root = loader.load();
 					LineChartDarstellung lcd = loader.getController();
-					lcd.initialisiereDiagramm(ausgeleseneMessungen);
+					lcd.initialisiereDiagramm(messreihe,ausgeleseneMessungen);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

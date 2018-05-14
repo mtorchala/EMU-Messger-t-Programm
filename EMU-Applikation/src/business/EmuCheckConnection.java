@@ -79,9 +79,10 @@ public class EmuCheckConnection extends Thread{
 	}
 
 	public void sendRequest(MESSWERT m)throws FTD2xxException{
-		device.write(m.getRequest());
+		device.write(m.getRequest().getBytes());
 		ergSchreiben = true;
 		System.out.println("Request " + m.getObis() + " " + m.toString());
+	
 	}
 	
 	// Damit das Device staendig liest, muss die Klasse

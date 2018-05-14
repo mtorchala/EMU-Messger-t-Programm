@@ -35,6 +35,12 @@ public class BasisModel {
         return anzahlMessungen;
 	}
 	
+	public int getExistiertMessreiheSchon(int messreihenId) throws ClassNotFoundException, SQLException{
+	 	DbAktionen dbAktionen = new DbAktionen(verbindungAufbauen());
+        int anzahlMessreihen = dbAktionen.getAnzahlMessreihen(messreihenId); 
+        return anzahlMessreihen;
+	}
+	
 	public ObservableList<Messreihe> leseMessreihenAusDB() throws SQLException, ClassNotFoundException{
 		DbAktionen dbAktionen = new DbAktionen(verbindungAufbauen());
         Messreihe[] messreihen = dbAktionen.leseAlleMessreihen();
@@ -52,13 +58,13 @@ public class BasisModel {
 		return con;
 	}
 	
-	public double fuehreMessungDurch(int messreihenId,int laufendenummer) throws Exception{
+	public double fuehreMessungDurch(int messreihenId,int laufendenummer, MESSWERT messgroesse) throws Exception{
 		ecc = new EmuCheckConnection();
 		ecc.connect();
 		Thread.sleep(1000);
 		ecc.sendProgrammingMode();
 		Thread.sleep(1000);
-		ecc.sendRequest(MESSWERT.Leistung);
+		ecc.sendRequest(messgroesse);
 		Thread.sleep(1000);
 		DatenEinfuegen(ecc.gibErgebnisAus(),messreihenId,laufendenummer);
 		ecc.disconnect();
