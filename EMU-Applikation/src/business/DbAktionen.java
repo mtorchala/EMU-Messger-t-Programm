@@ -92,5 +92,13 @@ class DbAktionen{
          ergebnis.close();
          return anzahl;
 	}
+	
+	public Connection verbindungAufbauen() throws ClassNotFoundException, SQLException{
+		Class.forName("com.mysql.jdbc.Driver");
+    	Connection con = DriverManager.getConnection(
+    	    "jdbc:mysql://192.168.66.16:3306/Torchala", "Torchala", 
+			    "marcmarc");
+		return con;
+	}
 }    
 
