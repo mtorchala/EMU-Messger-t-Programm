@@ -1,6 +1,19 @@
 package business;
+import java.io.IOException;
 import java.sql.*;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Vector;
+
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.WebResource;
 
 class DbAktionen{
  
@@ -14,8 +27,7 @@ class DbAktionen{
         this.statement = conMySql.createStatement();
     }
     
-    public Messung[] leseMessungen(int messreihenId)
-        throws SQLException { 
+    public Messung[] leseMessungen(int messreihenId) throws SQLException{ 
         ResultSet ergebnis;
         ergebnis = this.statement.executeQuery(
         	"SELECT * FROM Messung WHERE MessreihenId = " + messreihenId);
@@ -27,11 +39,13 @@ class DbAktionen{
                 Double.parseDouble(ergebnis.getString(2))));
          }
          ergebnis.close();
-         return messungen.toArray(new Messung[0]);
+         return messungen.toArray(new Messung[0]); 
+    	
+       
     }
     
     public Messreihe[] leseAlleMessreihen()
-            throws SQLException { 
+            throws SQLException, JsonParseException, JsonMappingException, IOException { 
             ResultSet ergebnis;
             ergebnis = this.statement.executeQuery(
             	"SELECT * FROM Messreihe");
@@ -43,7 +57,24 @@ class DbAktionen{
                     ergebnis.getString(3),ergebnis.getString(4)));
              }
              ergebnis.close();
+             
+          /*   Client client = ClientBuilder.newClient();
+             WebTarget webTarget = client.target("http://localhost:8080/EMU-Webserver/funktionen/leseAlleMessreihen");
+           */
+             
+             WebResource wrs = Client.create().resource("http://localhost:8080/EMU-Webserver/funktionen/leseAlleMessreihen");
+             String jsonResponse = wrs.accept(MediaType.APPLICATION_JSON).get(String.class);
+             
+             ObjectMapper om = new ObjectMapper();
+             Messreihe[] m = om.readValue(jsonResponse, Messreihe[].class);
+             
+             for(Messreihe r : m){
+            	 
+            	 r.gibAttributeAus();
+             }
+             
              return messreihen.toArray(new Messreihe[0]);
+             
         }
         
  

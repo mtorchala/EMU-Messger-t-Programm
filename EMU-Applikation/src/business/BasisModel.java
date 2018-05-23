@@ -6,6 +6,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.concurrent.TimeUnit;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -41,7 +44,7 @@ public class BasisModel {
         return anzahlMessreihen;
 	}
 	
-	public ObservableList<Messreihe> leseMessreihenAusDB() throws SQLException, ClassNotFoundException{
+	public ObservableList<Messreihe> leseMessreihenAusDB() throws SQLException, ClassNotFoundException, JsonParseException, JsonMappingException, IOException{
 		DbAktionen dbAktionen = new DbAktionen(verbindungAufbauen());
         Messreihe[] messreihen = dbAktionen.leseAlleMessreihen();
         
