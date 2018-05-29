@@ -3,7 +3,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER"/>
 	<classpathentry kind="lib" path="C:/Users/Student/git/EMU-Messgeraet/EMU-Applikation/mysql-connector-java-5.1.46-bin.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre1.8.0_131_32"/>
 	<classpathentry kind="lib" path="Z:/SoSe 2017/Seminar/Seminar6/lib/jackson-annotations-2.7.4.jar"/>
 	<classpathentry kind="lib" path="Z:/SoSe 2017/Seminar/Seminar6/lib/jackson-core-2.7.4.jar"/>
 	<classpathentry kind="lib" path="Z:/SoSe 2017/Seminar/Seminar6/lib/jackson-databind-2.7.4.jar"/>
@@ -15,5 +14,6 @@
 	<classpathentry kind="lib" path="Z:/SoSe 2017/Seminar/Seminar6/lib/jettison-1.1.jar"/>
 	<classpathentry kind="lib" path="Z:/SoSe 2017/Seminar/Seminar6/lib/jsr311-api-1.1.1.jar"/>
 	<classpathentry kind="lib" path="Z:/SoSe 2017/Seminar/Seminar2/Projekt_Emu_Vorgabe/javax.util.property-2_0.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre1.8.0_131_32"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

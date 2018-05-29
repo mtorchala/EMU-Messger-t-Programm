@@ -4,6 +4,8 @@ public class Messung {
 	private int laufendeNummer;
 	private double wert;
 	
+	public Messung() {}
+	
 	public Messung(int laufendeNummer, double wert) {
 		super();
 		this.laufendeNummer = laufendeNummer;

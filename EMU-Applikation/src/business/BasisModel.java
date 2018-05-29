@@ -7,7 +7,10 @@ import java.sql.SQLException;
 import java.util.concurrent.TimeUnit;
 
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.sun.jersey.api.client.ClientHandlerException;
+import com.sun.jersey.api.client.UniformInterfaceException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,8 +19,8 @@ public class BasisModel {
 	
 	EmuCheckConnection ecc;
 
-	public String leseMessungenAlsStringAusDB(int messreihenId) throws ClassNotFoundException, SQLException{
-	 	DbAktionen dbAktionen = new DbAktionen(verbindungAufbauen());
+	public String leseMessungenAlsStringAusDB(int messreihenId) throws ClassNotFoundException, SQLException, JsonParseException, JsonMappingException, IOException{
+	 	RWSAnbindung dbAktionen = new RWSAnbindung(verbindungAufbauen());
         Messung[] messungen = dbAktionen.leseMessungen(messreihenId); 
         String s = "";
         for(Messung m : messungen){
@@ -26,26 +29,26 @@ public class BasisModel {
         return s;
 	}
 	
-	public Messung[] leseMessungenAusDB(int messreihenId) throws ClassNotFoundException, SQLException{
-	 	DbAktionen dbAktionen = new DbAktionen(verbindungAufbauen());
+	public Messung[] leseMessungenAusDB(int messreihenId) throws ClassNotFoundException, SQLException, JsonParseException, JsonMappingException, IOException{
+	 	RWSAnbindung dbAktionen = new RWSAnbindung(verbindungAufbauen());
         Messung[] messungen = dbAktionen.leseMessungen(messreihenId); 
         return messungen;
 	}
 	
 	public int getAnzahlMessungenZuMessreihe(int messreihenId) throws ClassNotFoundException, SQLException{
-	 	DbAktionen dbAktionen = new DbAktionen(verbindungAufbauen());
+	 	RWSAnbindung dbAktionen = new RWSAnbindung(verbindungAufbauen());
         int anzahlMessungen = dbAktionen.getAnzahlMessungen(messreihenId); 
         return anzahlMessungen;
 	}
 	
 	public int getExistiertMessreiheSchon(int messreihenId) throws ClassNotFoundException, SQLException{
-	 	DbAktionen dbAktionen = new DbAktionen(verbindungAufbauen());
+	 	RWSAnbindung dbAktionen = new RWSAnbindung(verbindungAufbauen());
         int anzahlMessreihen = dbAktionen.getAnzahlMessreihen(messreihenId); 
         return anzahlMessreihen;
 	}
 	
 	public ObservableList<Messreihe> leseMessreihenAusDB() throws SQLException, ClassNotFoundException, JsonParseException, JsonMappingException, IOException{
-		DbAktionen dbAktionen = new DbAktionen(verbindungAufbauen());
+		RWSAnbindung dbAktionen = new RWSAnbindung(verbindungAufbauen());
         Messreihe[] messreihen = dbAktionen.leseAlleMessreihen();
         
         ObservableList<Messreihe> ol = FXCollections.observableArrayList(messreihen);
@@ -74,14 +77,14 @@ public class BasisModel {
 		return ecc.gibErgebnisAus();
 	}
 	
-	public void DatenEinfuegen(double w, int messreihenId,int laufendeNummer) throws ClassNotFoundException, SQLException{
+	public void DatenEinfuegen(double w, int messreihenId,int laufendeNummer) throws ClassNotFoundException, SQLException, UniformInterfaceException, ClientHandlerException, JsonProcessingException{
 		Messung messung = new Messung(laufendeNummer,w);
-		DbAktionen dbAktionen = new DbAktionen(verbindungAufbauen());
+		RWSAnbindung dbAktionen = new RWSAnbindung(verbindungAufbauen());
 	    dbAktionen.fuegeMessungEin(messreihenId, messung);
 	}
 	
-	public void speichereMessreihe(Messreihe messreihe) throws SQLException, ClassNotFoundException{
-		DbAktionen dbAktionen = new DbAktionen(verbindungAufbauen());
+	public void speichereMessreihe(Messreihe messreihe) throws SQLException, ClassNotFoundException, UniformInterfaceException, ClientHandlerException, JsonProcessingException{
+		RWSAnbindung dbAktionen = new RWSAnbindung(verbindungAufbauen());
         dbAktionen.fuegeMessreiheEin(messreihe);
 	}
 }

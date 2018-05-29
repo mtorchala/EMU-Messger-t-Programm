@@ -7,7 +7,10 @@ import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
 
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.sun.jersey.api.client.ClientHandlerException;
+import com.sun.jersey.api.client.UniformInterfaceException;
 
 import business.BasisModel;
 import business.Messreihe;
@@ -88,7 +91,17 @@ public class BasisControl implements Initializable{
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			return e.getMessage();
+		} catch (JsonParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		return null;
 	}
 	
 	/*public double fuehreMessungDurch(int messreihenId, int laufendeNummer) throws Exception {
@@ -220,6 +233,15 @@ public class BasisControl implements Initializable{
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
+		} catch (UniformInterfaceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClientHandlerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		messreihenLesen();
@@ -248,6 +270,15 @@ public class BasisControl implements Initializable{
 					e1.printStackTrace();
 				} catch (SQLException e1) {
 					e1.printStackTrace();
+				} catch (JsonParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (JsonMappingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 				
 				Stage stage = new Stage();
