@@ -48,6 +48,10 @@ public class MessreiheTest {
 	
 	public void Mgrgl0_Z15_Sverbraucher_MaMl(){
 		messreihe = new Messreihe(1,20,"LED","Leistung");
+		Assert.assertTrue(1 == messreihe.getMessreihenId());
+		Assert.assertTrue(20 == messreihe.getZeitintervall());
+		Assert.assertTrue(messreihe.getVerbraucher().equals("LED"));
+		Assert.assertTrue(messreihe.getMessgroesse().equals("Leistung"));
 		
 	}
 }
