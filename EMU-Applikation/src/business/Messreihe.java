@@ -14,10 +14,16 @@ public class Messreihe {
 	public Messreihe(int messreihenId, int zeitintervall,
 		String verbraucher, String messgroesse) {
 		super();
-		this.messreihenId = messreihenId;
-		this.zeitintervall = zeitintervall;
-		this.verbraucher = verbraucher;
-		this.messgroesse = messgroesse;
+		
+		if(messreihenId < 0 && zeitintervall >= 15 && verbraucher != null && !verbraucher.equals("") && messgroesse.equals("Arbeit") && messgroesse.equals("Leistung")){
+			throw new IllegalArgumentException("Fehler bei der Erstellung des Konstruktors!!");
+		}
+		else{
+			this.messreihenId = messreihenId;
+			this.zeitintervall = zeitintervall;
+			this.verbraucher = verbraucher;
+			this.messgroesse = messgroesse;
+		}
 	}
 
 	public int getMessreihenId() {
