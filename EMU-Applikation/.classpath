@@ -15,7 +15,17 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="testng-6.9.9.jar"/>
 	<classpathentry kind="lib" path="jcommander-1.48.jar"/>
-	<classpathentry kind="lib" path="/Users/marc/git/EMU-Messgeraet/EMU-Applikation/javax.util.property-2_0.jar"/>
-	<classpathentry kind="lib" path="/Users/marc/git/EMU-Messgeraet/EMU-Applikation/mysql-connector-java-5.1.46-bin.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Student/git/EMU-Messgeraet/EMU-Applikation/javax.util.property-2_0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Student/git/EMU-Messgeraet/EMU-Applikation/mysql-connector-java-5.1.46-bin.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Student/git/EMU-Messgeraet/EMU-Applikation/commons-collections-3.2.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Student/git/EMU-Messgeraet/EMU-Applikation/commons-io-2.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Student/git/EMU-Messgeraet/EMU-Applikation/commons-lang-2.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Student/git/EMU-Messgeraet/EMU-Applikation/freemarker-2.3.19.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Student/git/EMU-Messgeraet/EMU-Applikation/hamcrest-core-1.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Student/git/EMU-Messgeraet/EMU-Applikation/jbehave-core-3.9.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Student/git/EMU-Messgeraet/EMU-Applikation/paranamer-2.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Student/git/EMU-Messgeraet/EMU-Applikation/plexus-utils-3.0.10.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Student/git/EMU-Messgeraet/EMU-Applikation/xstream-1.4.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Student/git/EMU-Messgeraet/EMU-Applikation/junit-4.12.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

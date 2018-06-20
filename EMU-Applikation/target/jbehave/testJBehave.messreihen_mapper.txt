@@ -1,0 +1,20 @@
+Sample story
+(testJBehave/messreihen_mapper.story)
+Scenario: Messreihen ansehen
+Given eine Datenbank
+When die Messreihen aus der Datenbank abgefragt werden (FAILED)
+(com.sun.jersey.api.client.UniformInterfaceException: GET http://localhost:8080/EMU-Webserver/webapi/funktionen/leseAlleMessreihen returned a response status of 404 Not Found)
+Then sollen diese in das Programm geladen werden (NOT PERFORMED)
+
+Scenario: Messungen ansehen
+Given eine Messreihe mit der ID 1
+When die Messreihe an die Datenbankanbindung ?bergeben wird (PENDING)
+Then werden 7 Messungen der Messreihe geladen (NOT PERFORMED)
+@When("die Messreihe an die Datenbankanbindung \uFFFDbergeben wird")
+@Pending
+public void whenDieMessreiheAnDieDatenbankanbindungbergebenWird() {
+  // PENDING
+}
+
+
+

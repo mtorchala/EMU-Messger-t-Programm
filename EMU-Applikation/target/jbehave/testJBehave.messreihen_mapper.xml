@@ -1,0 +1,18 @@
+<story path="testJBehave/messreihen_mapper.story" title="Sample story">
+<scenario keyword="Scenario:" title="Messreihen ansehen">
+<step outcome="successful">Given eine Datenbank</step>
+<step outcome="failed" keyword="FAILED">When die Messreihen aus der Datenbank abgefragt werden<failure>com.sun.jersey.api.client.UniformInterfaceException: GET http://localhost:8080/EMU-Webserver/webapi/funktionen/leseAlleMessreihen returned a response status of 404 Not Found</failure></step>
+<step outcome="notPerformed" keyword="NOT PERFORMED">Then sollen diese in das Programm geladen werden</step>
+</scenario>
+<scenario keyword="Scenario:" title="Messungen ansehen">
+<step outcome="successful">Given eine Messreihe mit der ID <parameter>1</parameter></step>
+<step outcome="pending" keyword="PENDING">When die Messreihe an die Datenbankanbindung &#65533;bergeben wird</step>
+<step outcome="notPerformed" keyword="NOT PERFORMED">Then werden <parameter>7</parameter> Messungen der Messreihe geladen</step>
+<pendingMethod>@When(&quot;die Messreihe an die Datenbankanbindung \uFFFDbergeben wird&quot;)
+@Pending
+public void whenDieMessreiheAnDieDatenbankanbindungbergebenWird() {
+  // PENDING
+}
+</pendingMethod>
+</scenario>
+</story>

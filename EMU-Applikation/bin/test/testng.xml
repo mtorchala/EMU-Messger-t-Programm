@@ -1,0 +1,16 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<suite name = "TestSuitePraktikum4">
+   <test name = "test">
+   
+      <groups>
+         <run>
+            <include name = "erwartetexception" />
+         </run>
+      </groups>
+
+      <classes>
+         <class name = "test.MessreiheTest" />
+      </classes>
+   
+   </test>
+</suite>

@@ -15,8 +15,19 @@ public class Messreihe {
 		String verbraucher, String messgroesse) {
 		super();
 		
-		if(messreihenId < 0 && zeitintervall >= 15 && verbraucher != null && !verbraucher.equals("") && messgroesse.equals("Arbeit") && messgroesse.equals("Leistung")){
-			throw new IllegalArgumentException("Fehler bei der Erstellung des Konstruktors!!");
+		if(messreihenId < 0 || zeitintervall < 15){
+			throw new IllegalArgumentException("Fehler bei der Erstellung des Konstruktors! Messreihen-ID ist mit den falschen Werten besetzt!");
+		}
+		
+		else if(verbraucher == null){
+			throw new IllegalArgumentException("Fehler bei der Erstellung des Konstruktors! Übergebener Parameter verbraucher ist null!");
+		}
+		else if(verbraucher.equals("")){
+			throw new IllegalArgumentException("Fehler bei der Erstellung des Konstruktors! Übergebener Parameter verbraucher ist als leerer String gesetzt!");
+		}
+		
+		else if(!(messgroesse.equals("Arbeit") || messgroesse.equals("Leistung"))){
+			throw new IllegalArgumentException("Fehler bei der Erstellung des Konstruktors!! Übergebener Parameter messgroesse ist mit den falschen Werten besetzt!");
 		}
 		else{
 			this.messreihenId = messreihenId;

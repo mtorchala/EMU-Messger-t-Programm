@@ -18,38 +18,39 @@ public class MessreiheTest {
 		Assert.assertTrue(messreihe.getMessgroesse().equals("Leistung"));
 	}
 	
-	@Test(expectedExceptions = {IllegalArgumentException.class})
-	public void Mkl0_Z15_Snull_MaMl(){
-		messreihe = new Messreihe(-1,20,null,"Arbeit");
+	@Test(expectedExceptions = {IllegalArgumentException.class},groups = { "erwartetexception" })
+	public void Mkl0_Zkl15_V_M(){
+		messreihe = new Messreihe(-3,10,null,"Arbeit");
 	}
 	
-	@Test(expectedExceptions = {IllegalArgumentException.class})
-	public void Mkl0_Z15_Sleer_MaMl(){
-		messreihe = new Messreihe(-1,20,"","Leistung");
+	@Test(expectedExceptions = {IllegalArgumentException.class},groups = { "erwartetexception" })
+	public void Mkl0_Zgrgl15_V_M(){
+		messreihe = new Messreihe(-3,40,"LED","");
 		
 	}
 	
-	@Test(expectedExceptions = {IllegalArgumentException.class})
-	public void Mkl0_Z15_Sverbraucher_MaMl(){
-		messreihe = new Messreihe(-1,20,"LED","Arbeit");
+	@Test(expectedExceptions = {IllegalArgumentException.class},groups = { "erwartetexception" })
+	public void Mgrgl0_Zkl15_V_M(){
+		messreihe = new Messreihe(30,10,null,"");
 		
 	}
 	
-	@Test(expectedExceptions = {IllegalArgumentException.class})
-	public void Mgrgl0_Z15_Snull_MaMl(){
-		messreihe = new Messreihe(1,20,null,"Leistung");
+	@Test(expectedExceptions = {IllegalArgumentException.class},groups = { "erwartetexception" })
+	public void Mgrgl0_Zgrgl15_V_M(){
+		messreihe = new Messreihe(30,40,"","Leistung");
 		
 	}
-	@Test(expectedExceptions = {IllegalArgumentException.class})
-	public void Mgrgl0_Z15_Sleer_MaMl(){
-		messreihe = new Messreihe(1,20,"","Arbeit");
+	@Test(expectedExceptions = {IllegalArgumentException.class},groups = { "erwartetexception" })
+	public void Mgrgl0_Zgrgl15_Vstrings_Mfalsch(){
+		messreihe = new Messreihe(30,40,"LED","");
 		
 	}
 	
-	public void Mgrgl0_Z15_Sverbraucher_MaMl(){
-		messreihe = new Messreihe(1,20,"LED","Leistung");
-		Assert.assertTrue(1 == messreihe.getMessreihenId());
-		Assert.assertTrue(20 == messreihe.getZeitintervall());
+	@Test
+	public void Mgrgl0_Zgrgl15_Vstrings_Mkorrekt(){
+		messreihe = new Messreihe(30,40,"LED","Leistung");
+		Assert.assertTrue(30 == messreihe.getMessreihenId());
+		Assert.assertTrue(40 == messreihe.getZeitintervall());
 		Assert.assertTrue(messreihe.getVerbraucher().equals("LED"));
 		Assert.assertTrue(messreihe.getMessgroesse().equals("Leistung"));
 		
