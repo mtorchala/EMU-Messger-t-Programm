@@ -1,18 +1,29 @@
 <story path="testJBehave/messreihen_mapper.story" title="Sample story">
 <scenario keyword="Scenario:" title="Messreihen ansehen">
 <step outcome="successful">Given eine Datenbank</step>
-<step outcome="failed" keyword="FAILED">When die Messreihen aus der Datenbank abgefragt werden<failure>com.sun.jersey.api.client.UniformInterfaceException: GET http://localhost:8080/EMU-Webserver/webapi/funktionen/leseAlleMessreihen returned a response status of 404 Not Found</failure></step>
-<step outcome="notPerformed" keyword="NOT PERFORMED">Then sollen diese in das Programm geladen werden</step>
+<step outcome="successful">When die Messreihen aus der Datenbank abgefragt werden</step>
+<step outcome="successful">Then sollten <parameter>6 Messreihen</parameter> in das Programm geladen werden</step>
 </scenario>
 <scenario keyword="Scenario:" title="Messungen ansehen">
-<step outcome="successful">Given eine Messreihe mit der ID <parameter>1</parameter></step>
-<step outcome="pending" keyword="PENDING">When die Messreihe an die Datenbankanbindung &#65533;bergeben wird</step>
-<step outcome="notPerformed" keyword="NOT PERFORMED">Then werden <parameter>7</parameter> Messungen der Messreihe geladen</step>
-<pendingMethod>@When(&quot;die Messreihe an die Datenbankanbindung \uFFFDbergeben wird&quot;)
-@Pending
-public void whenDieMessreiheAnDieDatenbankanbindungbergebenWird() {
-  // PENDING
-}
-</pendingMethod>
+<examples keyword="Examples:">
+<step>Given eine Messreihe mit der ID &lt;messreiheid&gt;</step>
+<step>When die Messreihe an die Datenbankanbindung uebergeben wird</step>
+<step>Then werden &lt;anzahlMessungen&gt; Messungen der Messreihe geladen</step>
+<parameters>
+<names><name>messreiheid</name><name>anzahlMessungen</name></names>
+<values><value>3</value><value>7</value></values>
+<values><value>8</value><value>0</value></values>
+</parameters>
+
+<example keyword="Example:">{messreiheid=3, anzahlMessungen=7}</example>
+<step outcome="successful">Given eine Messreihe mit der ID <parameter>3</parameter></step>
+<step outcome="successful">When die Messreihe an die Datenbankanbindung uebergeben wird</step>
+<step outcome="successful">Then werden <parameter>7</parameter> Messungen der Messreihe geladen</step>
+
+<example keyword="Example:">{messreiheid=8, anzahlMessungen=0}</example>
+<step outcome="successful">Given eine Messreihe mit der ID <parameter>8</parameter></step>
+<step outcome="successful">When die Messreihe an die Datenbankanbindung uebergeben wird</step>
+<step outcome="successful">Then werden <parameter>0</parameter> Messungen der Messreihe geladen</step>
+</examples>
 </scenario>
 </story>

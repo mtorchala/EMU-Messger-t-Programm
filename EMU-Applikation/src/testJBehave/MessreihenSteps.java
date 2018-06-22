@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import org.jbehave.core.annotations.Given;
+import org.jbehave.core.annotations.Named;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import org.jbehave.core.steps.Steps;
@@ -35,20 +36,20 @@ public class MessreihenSteps extends Steps {
 		}
 	}
 	
-	@Then("sollen diese in das Programm geladen werden")
-	public void checkMessreihenListe(){
+	@Then("sollten $anzMessreihen in das Programm geladen werden")
+	public void checkMessreihenListe(int anzMessreihen){
 	
-		Assert.assertTrue(listeMessreihen.size() > 0);
+		Assert.assertTrue(listeMessreihen.size() == anzMessreihen);
 	}
 	
 	@Given("eine Messreihe mit der ID $id")
-	public void setId(int id){
+	public void setId(@Named("messreiheid")int id){
 		this.bm = new BasisModel();
 		this.id = id;
 
 	}
 	
-	@When("die Messreihe an die Datenbankanbindung übergeben wird")
+	@When("die Messreihe an die Datenbankanbindung uebergeben wird")
 	public void getMessungen(){	
 		try {
 			listeMessungen = bm.leseMessungenAusDB(id);
@@ -59,9 +60,9 @@ public class MessreihenSteps extends Steps {
 	}
 	
 	@Then("werden $anzahl Messungen der Messreihe geladen")
-	public void checkMessungen(int anzahl){
+	public void checkMessungen(@Named("anzahlMessungen")int anzahl){
 	
-		Assert.assertTrue(listeMessungen.length > 0);
+		Assert.assertTrue(listeMessungen.length == anzahl);
 	}
 	
 }

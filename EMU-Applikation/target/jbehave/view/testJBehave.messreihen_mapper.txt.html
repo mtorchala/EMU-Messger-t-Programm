@@ -12,19 +12,28 @@ Sample story
 (testJBehave/messreihen_mapper.story)
 Scenario: Messreihen ansehen
 Given eine Datenbank
-When die Messreihen aus der Datenbank abgefragt werden (FAILED)
-(com.sun.jersey.api.client.UniformInterfaceException: GET http://localhost:8080/EMU-Webserver/webapi/funktionen/leseAlleMessreihen returned a response status of 404 Not Found)
-Then sollen diese in das Programm geladen werden (NOT PERFORMED)
+When die Messreihen aus der Datenbank abgefragt werden
+Then sollten 6 Messreihen in das Programm geladen werden
 
 Scenario: Messungen ansehen
-Given eine Messreihe mit der ID 1
-When die Messreihe an die Datenbankanbindung ?bergeben wird (PENDING)
-Then werden 7 Messungen der Messreihe geladen (NOT PERFORMED)
-@When("die Messreihe an die Datenbankanbindung \uFFFDbergeben wird")
-@Pending
-public void whenDieMessreiheAnDieDatenbankanbindungbergebenWird() {
-  // PENDING
-}
+Examples:
+Given eine Messreihe mit der ID <messreiheid>
+When die Messreihe an die Datenbankanbindung uebergeben wird
+Then werden <anzahlMessungen> Messungen der Messreihe geladen
+
+|messreiheid|anzahlMessungen|
+|3|7|
+|8|0|
+
+Example: {messreiheid=3, anzahlMessungen=7}
+Given eine Messreihe mit der ID 3
+When die Messreihe an die Datenbankanbindung uebergeben wird
+Then werden 7 Messungen der Messreihe geladen
+
+Example: {messreiheid=8, anzahlMessungen=0}
+Given eine Messreihe mit der ID 8
+When die Messreihe an die Datenbankanbindung uebergeben wird
+Then werden 0 Messungen der Messreihe geladen
 
 
 
