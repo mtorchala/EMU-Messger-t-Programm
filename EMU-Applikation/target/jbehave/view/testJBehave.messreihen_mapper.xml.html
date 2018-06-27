@@ -11,8 +11,8 @@
 <story path="testJBehave/messreihen_mapper.story" title="Sample story">
 <scenario keyword="Scenario:" title="Messreihen ansehen">
 <step outcome="successful">Given eine Datenbank</step>
-<step outcome="successful">When die Messreihen aus der Datenbank abgefragt werden</step>
-<step outcome="successful">Then sollten <parameter>6 Messreihen</parameter> in das Programm geladen werden</step>
+<step outcome="failed" keyword="FAILED">When die Messreihen aus der Datenbank abgefragt werden<failure>com.sun.jersey.api.client.ClientHandlerException: java.net.ConnectException: Connection refused: connect</failure></step>
+<step outcome="notPerformed" keyword="NOT PERFORMED">Then sollten <parameter>6 Messreihen</parameter> in das Programm geladen werden</step>
 </scenario>
 <scenario keyword="Scenario:" title="Messungen ansehen">
 <examples keyword="Examples:">
@@ -27,13 +27,13 @@
 
 <example keyword="Example:">{messreiheid=3, anzahlMessungen=7}</example>
 <step outcome="successful">Given eine Messreihe mit der ID <parameter>3</parameter></step>
-<step outcome="successful">When die Messreihe an die Datenbankanbindung uebergeben wird</step>
-<step outcome="successful">Then werden <parameter>7</parameter> Messungen der Messreihe geladen</step>
+<step outcome="failed" keyword="FAILED">When die Messreihe an die Datenbankanbindung uebergeben wird<failure>com.sun.jersey.api.client.ClientHandlerException: java.net.ConnectException: Connection refused: connect</failure></step>
+<step outcome="notPerformed" keyword="NOT PERFORMED">Then werden <parameter>7</parameter> Messungen der Messreihe geladen</step>
 
 <example keyword="Example:">{messreiheid=8, anzahlMessungen=0}</example>
 <step outcome="successful">Given eine Messreihe mit der ID <parameter>8</parameter></step>
-<step outcome="successful">When die Messreihe an die Datenbankanbindung uebergeben wird</step>
-<step outcome="successful">Then werden <parameter>0</parameter> Messungen der Messreihe geladen</step>
+<step outcome="failed" keyword="FAILED">When die Messreihe an die Datenbankanbindung uebergeben wird<failure>com.sun.jersey.api.client.ClientHandlerException: java.net.ConnectException: Connection refused: connect</failure></step>
+<step outcome="notPerformed" keyword="NOT PERFORMED">Then werden <parameter>0</parameter> Messungen der Messreihe geladen</step>
 </examples>
 </scenario>
 </story>

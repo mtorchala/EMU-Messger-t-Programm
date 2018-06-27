@@ -12,8 +12,8 @@
 <div class="scenario">
 <h2>Scenario: Messreihen ansehen</h2>
 <div class="step successful">Given eine Datenbank</div>
-<div class="step successful">When die Messreihen aus der Datenbank abgefragt werden</div>
-<div class="step successful">Then sollten <span class="step parameter">6 Messreihen</span> in das Programm geladen werden</div>
+<div class="step failed">When die Messreihen aus der Datenbank abgefragt werden <span class="keyword failed">(FAILED)</span><br/><span class="message failed">com.sun.jersey.api.client.ClientHandlerException: java.net.ConnectException: Connection refused: connect</span></div>
+<div class="step notPerformed">Then sollten <span class="step parameter">6 Messreihen</span> in das Programm geladen werden <span class="keyword notPerformed">(NOT PERFORMED)</span></div>
 </div>
 <div class="scenario">
 <h2>Scenario: Messungen ansehen</h2>
@@ -37,13 +37,13 @@
 
 <h3 class="example">Example: {messreiheid=3, anzahlMessungen=7}</h3>
 <div class="step successful">Given eine Messreihe mit der ID <span class="step parameter">3</span></div>
-<div class="step successful">When die Messreihe an die Datenbankanbindung uebergeben wird</div>
-<div class="step successful">Then werden <span class="step parameter">7</span> Messungen der Messreihe geladen</div>
+<div class="step failed">When die Messreihe an die Datenbankanbindung uebergeben wird <span class="keyword failed">(FAILED)</span><br/><span class="message failed">com.sun.jersey.api.client.ClientHandlerException: java.net.ConnectException: Connection refused: connect</span></div>
+<div class="step notPerformed">Then werden <span class="step parameter">7</span> Messungen der Messreihe geladen <span class="keyword notPerformed">(NOT PERFORMED)</span></div>
 
 <h3 class="example">Example: {messreiheid=8, anzahlMessungen=0}</h3>
 <div class="step successful">Given eine Messreihe mit der ID <span class="step parameter">8</span></div>
-<div class="step successful">When die Messreihe an die Datenbankanbindung uebergeben wird</div>
-<div class="step successful">Then werden <span class="step parameter">0</span> Messungen der Messreihe geladen</div>
+<div class="step failed">When die Messreihe an die Datenbankanbindung uebergeben wird <span class="keyword failed">(FAILED)</span><br/><span class="message failed">com.sun.jersey.api.client.ClientHandlerException: java.net.ConnectException: Connection refused: connect</span></div>
+<div class="step notPerformed">Then werden <span class="step parameter">0</span> Messungen der Messreihe geladen <span class="keyword notPerformed">(NOT PERFORMED)</span></div>
 </div>
 </div>
 </div>
